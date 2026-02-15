@@ -1,3 +1,4 @@
+//MARK: IMPORTS
 import mongoose, {mongo} from "mongoose";
 
 async function connectDatabase() {
