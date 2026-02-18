@@ -1,7 +1,7 @@
 //MARK: IMPORTS
 import NotFound from "../errors/NotFound.js";
 import author from "../models/Author.js";
-import book from "../models/Book.js";
+import {book} from "../models/index.js";
 
 class BookController {
 
