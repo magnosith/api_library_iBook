@@ -4,10 +4,11 @@ import { author, book } from "../models/index.js";
 
 class BookController {
 
-  static async listBooks (req, res, next){
+  static listBooks = async (req, res, next) => {
     try {
-      const listBooks = await book.find({});
-      res.status(200).json(listBooks);
+      const findBooks = book.find();
+      req.result = findBooks;
+      next();
     } catch (erro) {
       next(erro);
     }
@@ -81,10 +82,9 @@ class BookController {
       const find = await findProcess(req.query);
 
       if (find !== null){
-        const searchedBook = await book
-          .find(find)
-          .populate("author");    
-        res.status(200).json(searchedBook);
+        const searchedBook = book.find(find);
+        req.result = searchedBook;    
+        next();
       } else {
         res.status(200).send([]);
       }
@@ -95,6 +95,7 @@ class BookController {
   };
 }
 
+//MARK: UTILS FUNCTIONS
 async function findProcess(params) {
   const { publisher, title, minPages, maxPages, authorName } = params;
   let find = {};

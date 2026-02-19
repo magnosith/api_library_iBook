@@ -1,5 +1,6 @@
 //MARK: IMPORTS
 import mongoose from "mongoose";
+import autopopulate from "mongoose-autopopulate";
 
 const bookSchema = new mongoose.Schema({
   id: { type: mongoose.Schema.Types.ObjectId},
@@ -31,10 +32,12 @@ const bookSchema = new mongoose.Schema({
   author: {
     type: mongoose.Schema.Types.ObjectId, 
     ref: "authors", 
-    required: [true, "Author's name is required"]
+    required: [true, "Author's name is required"],
+    autopopulate: true
   }
 }, { versionKey: false});
 
+bookSchema.plugin(autopopulate);
 const book = mongoose.model("books", bookSchema);
 
 export default book;
